@@ -4,7 +4,50 @@
  * Login Page
  */
 
+
 require_once 'includes/db.php';
+
+/*
+|--------------------------------------------------------------------------
+| Google reCAPTCHA v2 Settings
+|--------------------------------------------------------------------------
+*/
+define('RECAPTCHA_SITE_KEY', 'YOUR_RECAPTCHA_SITE_KEY');
+define('RECAPTCHA_SECRET_KEY', 'YOUR_RECAPTCHA_SECRET_KEY');
+
+function verify_recaptcha(string $response): bool
+{
+    if ($response === '' || RECAPTCHA_SECRET_KEY === 'YOUR_RECAPTCHA_SECRET_KEY') {
+        return false;
+    }
+
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query([
+            'secret'   => RECAPTCHA_SECRET_KEY,
+            'response' => $response,
+            'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+        ]),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 10,
+        CURLOPT_SSL_VERIFYPEER => true,
+    ]);
+
+    $result = curl_exec($ch);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    if ($result === false || $curlError !== '') {
+        return false;
+    }
+
+    $data = json_decode($result, true);
+
+    return !empty($data['success']);
+}
+
 
 
 /*
@@ -126,6 +169,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     */
 
     verify_csrf();
+
+    /*
+     |--------------------------------------------------------------------------
+     | Google reCAPTCHA Verification
+     |--------------------------------------------------------------------------
+     */
+
+    $recaptcha_response = $_POST['g-recaptcha-response'] ?? '';
+
+    if (!verify_recaptcha($recaptcha_response)) {
+
+        $error =
+            "Please complete the reCAPTCHA verification "
+            . "before signing in.";
+
+    } else {
+
+
 
 
     /*
@@ -541,6 +602,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     }
+    }
 }
 
 
@@ -600,6 +662,9 @@ if ($login_locked) {
         href="assets/css/style.css?v=4"
         rel="stylesheet"
     >
+
+    <!-- Google reCAPTCHA v2 -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
@@ -861,6 +926,18 @@ if ($login_locked) {
                     </div>
 
                 </div>
+
+
+                <!-- GOOGLE reCAPTCHA v2 -->
+
+                <?php if (!$login_locked): ?>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <div
+                            class="g-recaptcha"
+                            data-sitekey="<?php echo htmlspecialchars(RECAPTCHA_SITE_KEY, ENT_QUOTES, 'UTF-8'); ?>"
+                        ></div>
+                    </div>
+                <?php endif; ?>
 
 
                 <!-- SIGN IN BUTTON -->
