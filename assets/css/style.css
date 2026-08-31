@@ -1,0 +1,847 @@
+/* =====================================================================
+   ATZ Fitness Gym Management System — Design System
+   Theme: Black / White / Red · Modern SaaS visual language
+   ===================================================================== */
+
+/* ---------- Font ---------- */
+@import url('../vendor/fonts/inter/inter.css');
+
+:root {
+    /* Brand */
+    --atz-black: #0e0f13;
+    --atz-dark: #171922;
+    --atz-dark-2: #1f222c;
+    --atz-red: #d81324;
+    --atz-red-hover: #b30f1d;
+    --atz-red-active: #930c17;
+    --atz-red-soft: #fdecee;
+    --atz-red-soft-2: #fbdadd;
+    --atz-white: #ffffff;
+
+    /* Neutrals */
+    --ink-900: #14161c;
+    --ink-700: #333846;
+    --ink-500: #667085;
+    --ink-400: #8a93a6;
+    --ink-300: #c3c9d4;
+    --ink-200: #e2e6ed;
+    --ink-100: #eef1f5;
+    --ink-50:  #f6f8fa;
+    --page-bg: #f4f6f9;
+
+    /* Semantic */
+    --success: #16a34a;
+    --success-soft: #e7f7ee;
+    --danger: #dc2626;
+    --danger-soft: #fdecec;
+    --info: #0d6efd;
+    --info-soft: #e8f1ff;
+    --caution: #f59e0b;
+    --caution-soft: #fef6e7;
+
+    /* Elevation */
+    --shadow-xs: 0 1px 2px rgba(16, 20, 30, 0.05);
+    --shadow-sm: 0 2px 8px rgba(16, 20, 30, 0.06);
+    --shadow-md: 0 6px 20px rgba(16, 20, 30, 0.08);
+    --shadow-lg: 0 16px 40px rgba(16, 20, 30, 0.14);
+
+    /* Radius */
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+    --r-xl: 20px;
+
+    /* Re-point Bootstrap's "warning" theme color at our red accent.
+       Bootstrap 5.3 utilities (bg-warning, text-warning, border-warning,
+       table-warning, etc.) are built on these CSS variables, so this one
+       change re-colors every "accent" usage across the app. */
+    --bs-warning: var(--atz-red);
+    --bs-warning-rgb: 216, 19, 36;
+    --bs-body-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --bs-border-color: var(--ink-200);
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--ink-300) transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--ink-300); border-radius: 20px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-400); }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--page-bg);
+    color: var(--ink-900);
+    font-size: 0.94rem;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.01em;
+    color: var(--ink-900);
+}
+
+/* Headings inside a dark card (e.g. the "Total Revenue" stat card) must
+   stay white. The rule above sets every heading to a near-black color,
+   which was winning over the card's "text-white" because that utility
+   only colors the text it's applied to directly, not descendant <h1>-<h6>
+   tags. Without this, dark-card numbers render as dark text on a dark
+   background and become invisible. */
+.card.bg-dark h1, .card.bg-dark h2, .card.bg-dark h3,
+.card.bg-dark h4, .card.bg-dark h5, .card.bg-dark h6,
+.card.text-white h1, .card.text-white h2, .card.text-white h3,
+.card.text-white h4, .card.text-white h5, .card.text-white h6 {
+    color: #ffffff;
+}
+
+.text-dark { color: var(--ink-900) !important; }
+.text-muted { color: var(--ink-500) !important; }
+a { color: var(--atz-red); }
+a:hover { color: var(--atz-red-hover); }
+
+/* Consistent focus ring across all interactive elements for accessibility */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+    outline: 2px solid var(--atz-red);
+    outline-offset: 2px;
+}
+
+/* ---------- Logo ---------- */
+img.navbar-logo {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 2px;
+    border: 2px solid var(--atz-red);
+}
+
+img.login-logo {
+    width: 84px !important;
+    height: 84px !important;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #fff;
+    padding: 4px;
+    border: 3px solid var(--atz-red);
+    box-shadow: 0 0 0 6px rgba(216, 19, 36, 0.12);
+}
+
+/* ---------- Top Navbar ---------- */
+.min-w-0 { min-width: 0; }
+
+.navbar.bg-dark {
+    background: linear-gradient(180deg, var(--atz-black) 0%, #121319 100%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar .navbar-brand span { letter-spacing: 0.02em; }
+
+.navbar-text.border-start { border-color: rgba(255, 255, 255, 0.15) !important; }
+
+.navbar .badge.bg-warning {
+    letter-spacing: 0.02em;
+    font-weight: 600;
+    font-size: 0.72rem;
+    box-shadow: var(--shadow-xs);
+}
+
+.navbar .dropdown-toggle::after { opacity: 0.6; }
+
+.navbar .dropdown-menu {
+    border: none;
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem;
+    margin-top: 0.6rem !important;
+    min-width: 230px;
+}
+
+.navbar .dropdown-item {
+    border-radius: var(--r-sm);
+    padding: 0.55rem 0.75rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar .dropdown-item:hover,
+.navbar .dropdown-item:focus { background-color: var(--ink-50); }
+.navbar .dropdown-item.text-danger:hover { background-color: var(--danger-soft); }
+.navbar .dropdown-divider { margin: 0.4rem 0; border-color: var(--ink-100); }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    background: linear-gradient(180deg, var(--atz-black) 0%, #121319 100%) !important;
+}
+
+#sidebarMenu.offcanvas-md { --bs-offcanvas-width: 272px; }
+
+/* Sticky positioning still lets the sidebar's own edges scroll in and out
+   of view with the page. To make it truly steady — never moving at all,
+   with ONLY the dashboard content scrolling underneath it — the sidebar
+   is taken out of the normal document flow with position: fixed and
+   pinned to the viewport instead. This only applies at md and up
+   (desktop); on mobile the sidebar is still the slide-out offcanvas menu
+   and must not be touched. */
+@media (min-width: 768px) {
+    #sidebarMenu.offcanvas-md.sidebar {
+        position: fixed !important;
+        top: 76px;              /* sits right below the navbar */
+        left: 0;
+        bottom: 0;
+        width: 272px;
+        overflow-y: auto;       /* only kicks in if the menu itself is taller than the screen */
+        z-index: 1020;
+    }
+
+    /* Fixed positioning takes the sidebar out of the grid row, so <main>
+       no longer has it "reserving" space beside it. This restores that
+       space with a matching left margin so content isn't hidden under
+       the fixed sidebar.
+       Note: plain "main { }" isn't specific enough to beat Bootstrap's
+       own ".ms-sm-auto { margin-left: auto !important; }" utility class
+       already on the <main> tag — both are !important, so the more
+       specific selector (a class beats a bare element) wins regardless
+       of order. Matching that class here is what makes this rule stick.
+       <main> also still carries Bootstrap's col-md-9 / col-lg-10 width
+       classes, which size it as a percentage of the full row — they
+       don't know 272px is now permanently taken by the fixed sidebar.
+       That mismatch was pushing the right edge off-screen and causing
+       a horizontal scrollbar, so width/max-width are capped here too. */
+    main.ms-sm-auto {
+        margin-left: 272px !important;
+        width: calc(100% - 272px) !important;
+        max-width: calc(100% - 272px) !important;
+        flex: 0 0 auto !important;
+    }
+}
+
+.sidebar .position-sticky {
+    position: static;
+}
+
+.sidebar .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.68) !important;
+    border-radius: var(--r-sm) !important;
+    padding: 0.62rem 0.85rem !important;
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    position: relative;
+    transition: background-color 0.15s ease, color 0.15s ease, padding-left 0.15s ease;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.02rem;
+    width: 1.4rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.sidebar .nav-link:hover, .sidebar .hover-bg:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #ffffff !important;
+    padding-left: 1rem !important;
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba(216, 19, 36, 0.16) !important;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.sidebar .nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -0.5rem;
+    top: 12%;
+    bottom: 12%;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+    background: var(--atz-red);
+}
+
+.sidebar .nav-link.active i { color: var(--atz-red); }
+
+.sidebar-heading {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.35) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 1rem !important;
+}
+
+.offcanvas-header.border-bottom { border-color: rgba(255, 255, 255, 0.1) !important; }
+
+main { background-color: var(--page-bg); }
+
+/* ---------- Page Header (shared markup pattern across all pages) ---------- */
+main > .d-flex.border-bottom,
+.d-flex.pt-2.pb-3.mb-4.border-bottom {
+    border-color: var(--ink-200) !important;
+    margin-bottom: 1.75rem !important;
+    padding-bottom: 1.1rem !important;
+}
+
+main h1.h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+main h1.h2 i { font-size: 1.15rem; }
+
+/* ---------- Cards ---------- */
+.card {
+    border: 1px solid var(--ink-100);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease;
+}
+
+.card:hover { box-shadow: var(--shadow-sm); }
+
+.card-header {
+    border-top-left-radius: var(--r-lg) !important;
+    border-top-right-radius: var(--r-lg) !important;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-header.bg-dark { background: var(--atz-black) !important; }
+
+.card-body { padding: 1.25rem 1.5rem; }
+
+.card.p-3 { padding: 1.35rem !important; }
+
+/* Stat / metric cards on dashboards */
+.stat-card {
+    border-left: none !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--atz-black);
+}
+
+.card.border-left.border-4 {
+    border-left: none !important;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--ink-100) !important;
+}
+
+.card.border-left.border-4::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+}
+
+.card.border-left.border-4.border-danger::before { background: var(--danger); }
+.card.border-left.border-4.border-dark::before { background: var(--ink-900); }
+.card.border-left.border-4.border-success::before { background: var(--success); }
+.card.border-left.border-4.border-primary::before { background: var(--info); }
+
+.card.bg-dark {
+    background: linear-gradient(135deg, var(--atz-black) 0%, #1c1e28 100%) !important;
+    border: none !important;
+}
+
+.card .text-uppercase.small {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+}
+
+.card h3.fw-bold { font-size: 1.6rem; letter-spacing: -0.02em; }
+
+/* Icon avatar chips used in stat cards */
+.card [style*="border-radius"], .card .rounded-circle.p-3 { box-shadow: var(--shadow-xs); }
+
+/* ---------- Tables ---------- */
+.table-responsive {
+    border-radius: var(--r-md);
+}
+
+.table {
+    margin-bottom: 0;
+    font-size: 0.89rem;
+}
+
+.table th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 700;
+    background-color: var(--ink-50);
+    color: var(--ink-500);
+    border-bottom: 1px solid var(--ink-200);
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+
+.table td {
+    padding: 0.8rem 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--ink-100);
+    color: var(--ink-700);
+}
+
+.table tbody tr { transition: background-color 0.12s ease; }
+
+.table-hover tbody tr:hover {
+    background-color: var(--ink-50);
+}
+
+.table tbody tr:last-child td { border-bottom: none; }
+
+.table-dark th {
+    background-color: var(--atz-black) !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+    border-bottom: none;
+}
+
+.table > :not(caption) > * > * { box-shadow: none; }
+
+/* Empty state rows */
+.table td.text-center.text-muted.py-4 {
+    padding: 2.75rem 1rem !important;
+    font-size: 0.9rem;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    padding: 0.4em 0.7em;
+    border-radius: 999px;
+}
+
+.badge-student { background-color: var(--info); color: white; }
+.badge-regular { background-color: var(--success); color: white; }
+.badge-vip { background-color: var(--atz-red); color: white; }
+.badge-active { background-color: var(--success); }
+.badge-expiring { background-color: #ea8a1a; }
+.badge-expired { background-color: var(--danger); }
+
+/* ---------- Buttons ---------- */
+.btn {
+    border-radius: var(--r-sm);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.5rem 1.05rem;
+    letter-spacing: 0.01em;
+    transition: transform 0.12s ease, box-shadow 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+.btn.shadow-sm:hover { box-shadow: var(--shadow-sm) !important; }
+
+.btn-sm { padding: 0.32rem 0.7rem; font-size: 0.8rem; border-radius: 7px; }
+.btn-lg { border-radius: 10px; }
+
+.btn-dark {
+    background-color: var(--atz-black);
+    border-color: var(--atz-black);
+}
+.btn-dark:hover, .btn-dark:focus {
+    background-color: #23252f;
+    border-color: #23252f;
+}
+
+.btn-outline-dark { border-color: var(--ink-300); color: var(--ink-700); }
+.btn-outline-dark:hover { background-color: var(--atz-black); border-color: var(--atz-black); }
+
+.btn-secondary {
+    background-color: var(--ink-100);
+    border-color: var(--ink-100);
+    color: var(--ink-700);
+}
+.btn-secondary:hover { background-color: var(--ink-200); border-color: var(--ink-200); color: var(--ink-900); }
+
+.btn-warning {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--atz-red);
+    --bs-btn-border-color: var(--atz-red);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--atz-red-hover);
+    --bs-btn-hover-border-color: var(--atz-red-hover);
+    --bs-btn-focus-shadow-rgb: 216, 19, 36;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--atz-red-active);
+    --bs-btn-active-border-color: var(--atz-red-active);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: var(--atz-red);
+    --bs-btn-disabled-border-color: var(--atz-red);
+    box-shadow: 0 2px 8px rgba(216, 19, 36, 0.28);
+}
+
+.btn-warning:hover { box-shadow: 0 4px 14px rgba(216, 19, 36, 0.36); }
+
+/* Several buttons across the app pair btn-warning with text-dark from the
+   old yellow-theme convention; on red, white reads far better, and this
+   selector's specificity safely wins over Bootstrap's text-dark utility. */
+.btn-warning.text-dark { color: #fff !important; }
+
+.btn-outline-warning {
+    --bs-btn-color: var(--atz-red);
+    --bs-btn-border-color: var(--atz-red);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--atz-red);
+    --bs-btn-hover-border-color: var(--atz-red);
+    --bs-btn-focus-shadow-rgb: 216, 19, 36;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--atz-red);
+    --bs-btn-active-border-color: var(--atz-red);
+}
+
+/* Force readable text on the yellow->red repointed "warning" pills */
+.bg-warning.text-dark { color: #fff !important; }
+
+/* ---------- Bootstrap warning-color utility overrides ----------
+   bg-warning / text-warning / border-warning ship as hardcoded yellow hex
+   values in bootstrap.min.css (not driven by --bs-warning-rgb), so the
+   :root override alone has no effect on them. These explicit rules are
+   what actually repaints every yellow accent red. */
+.bg-warning { background-color: var(--atz-red) !important; }
+.text-warning { color: var(--atz-red) !important; }
+.border-warning { border-color: var(--atz-red) !important; }
+
+.table-warning,
+.table-warning > * {
+    --bs-table-bg: var(--atz-red-soft);
+    --bs-table-border-color: var(--atz-red-soft-2);
+    --bs-table-color: #7a0c15;
+}
+
+.list-group-item-warning {
+    color: #7a0c15;
+    background-color: var(--atz-red-soft);
+}
+
+/* ---------- Forms ---------- */
+.form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--ink-700);
+    margin-bottom: 0.35rem;
+}
+
+.form-control, .form-select {
+    border: 1px solid var(--ink-200);
+    border-radius: var(--r-sm);
+    padding: 0.55rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--ink-900);
+    background-color: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control::placeholder { color: var(--ink-400); }
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--atz-red);
+    box-shadow: 0 0 0 0.2rem rgba(216, 19, 36, 0.14);
+}
+
+.form-control:disabled, .form-select:disabled { background-color: var(--ink-50); color: var(--ink-400); }
+
+.form-check-input { border-color: var(--ink-300); }
+.form-check-input:checked {
+    background-color: var(--atz-red);
+    border-color: var(--atz-red);
+}
+.form-check-input:focus { box-shadow: 0 0 0 0.2rem rgba(216, 19, 36, 0.14); }
+
+.form-text { font-size: 0.78rem; color: var(--ink-500); }
+
+.input-group-text {
+    background-color: var(--ink-50);
+    border: 1px solid var(--ink-200);
+    color: var(--ink-500);
+}
+
+.is-invalid, .form-control.is-invalid, .form-select.is-invalid {
+    border-color: var(--danger) !important;
+}
+.invalid-feedback { font-size: 0.78rem; font-weight: 500; }
+
+.was-validated .form-control:valid, .form-control.is-valid {
+    border-color: var(--success);
+}
+
+/* Required-field indicator convention: wrap the asterisk in <span class="text-danger"> */
+.form-label .text-danger { font-weight: 700; }
+
+/* ---------- Modals ---------- */
+.modal-content {
+    border: none;
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 1.1rem 1.5rem;
+    border-bottom: none;
+}
+
+.modal-header.bg-dark {
+    background: var(--atz-black) !important;
+}
+
+.modal-title { font-size: 1.05rem; }
+
+.modal-body { padding: 1.5rem; }
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--ink-100);
+    background-color: var(--ink-50) !important;
+}
+
+.modal-footer.bg-light { background-color: var(--ink-50) !important; }
+
+.modal-backdrop.show { opacity: 0.55; }
+
+/* ---------- Alerts ---------- */
+.alert {
+    border: none;
+    border-radius: var(--r-md);
+    font-size: 0.88rem;
+    padding: 0.9rem 1.1rem;
+}
+
+.alert-success { background-color: var(--success-soft); color: #0f6b31; }
+.alert-danger { background-color: var(--danger-soft); color: #97180f; }
+.alert-info { background-color: var(--info-soft); color: #084298; }
+.alert-warning {
+    --bs-alert-color: #7a0c15;
+    --bs-alert-bg: var(--atz-red-soft);
+    --bs-alert-border-color: var(--atz-red-soft-2);
+    color: #7a0c15;
+    background-color: var(--atz-red-soft);
+}
+
+/* ---------- Pagination ---------- */
+.pagination .page-link {
+    border: 1px solid var(--ink-200);
+    color: var(--ink-700);
+    font-weight: 500;
+    margin: 0 2px;
+    border-radius: var(--r-sm);
+}
+.pagination .page-item.active .page-link {
+    background-color: var(--atz-red);
+    border-color: var(--atz-red);
+}
+.pagination .page-link:hover { background-color: var(--ink-50); }
+
+/* ---------- Misc components ---------- */
+.qr-code-box {
+    border: 2px dashed var(--ink-300);
+    border-radius: var(--r-md);
+    padding: 20px;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+.receipt-modal-content {
+    background: #fff;
+    border: 1px solid var(--ink-200);
+    border-radius: var(--r-sm);
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+hr { color: var(--ink-200); opacity: 1; }
+
+/* ---------- Auth pages (login / register / forgot / reset password) ---------- */
+.auth-shell {
+    background: radial-gradient(circle at 20% 20%, #23252f 0%, var(--atz-black) 55%, #05060a 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background: #ffffff;
+    border-radius: var(--r-xl);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+.login-card.login-card-lg { max-width: 620px; }
+
+.login-header {
+    background: var(--atz-black);
+    color: var(--atz-red);
+    padding: 2.25rem 1.5rem 1.75rem;
+    text-align: center;
+    position: relative;
+}
+
+.login-header::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--atz-red), transparent);
+}
+
+.login-header h3 { letter-spacing: 0.02em; }
+
+/* Role selector used on the registration form */
+.role-toggle { display: flex; gap: 10px; }
+.role-toggle input[type="radio"] { display: none; }
+.role-toggle label {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid var(--ink-200);
+    border-radius: var(--r-md);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--ink-500);
+    transition: all 0.15s ease;
+}
+.role-toggle input[type="radio"]:checked + label {
+    border-color: var(--atz-red);
+    background: var(--atz-red-soft);
+    color: var(--atz-red);
+}
+
+/* ---------- Printable Report Letterhead ----------
+   Hidden on screen; shown only at the top of the page when printing
+   a report (see .print-report-area / @media print below). */
+.print-letterhead { display: none; }
+
+.print-letterhead .pl-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #000;
+}
+
+.print-letterhead h2 { margin: 0; font-weight: 800; letter-spacing: 0.5px; }
+
+.print-letterhead .pl-meta { font-size: 0.8rem; color: #444; }
+
+/* ---------- Print Mode (Reports & Daily Report) ----------
+   Any page can opt in by wrapping its report content in
+   <div class="print-report-area"> ... </div>. On print:
+   - Navbar, sidebar, buttons, forms, and nav chrome disappear.
+   - The report area expands to full page width.
+   - A letterhead appears above the report content.
+   - Cards/tables get flattened borders so it reads like a document. */
+@media print {
+    .navbar,
+    #sidebarMenu,
+    .btn,
+    .dropdown,
+    form,
+    .no-print,
+    .d-print-none {
+        display: none !important;
+    }
+
+    body { background: #fff !important; }
+
+    .container-fluid,
+    .container-fluid .row,
+    main {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    main { padding: 0 !important; }
+
+    .print-report-area .print-letterhead {
+        display: flex !important;
+        align-items: center;
+        gap: 14px;
+        border-bottom: 3px solid #000;
+        padding-bottom: 10px;
+        margin-bottom: 18px;
+    }
+
+    .print-report-area .card {
+        border: 1px solid #999 !important;
+        box-shadow: none !important;
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .print-report-area .card.bg-dark {
+        background: #fff !important;
+        color: #000 !important;
+        border: 1px solid #000 !important;
+    }
+
+    .print-report-area .text-white,
+    .print-report-area .text-white-50 {
+        color: #000 !important;
+    }
+
+    .print-report-area h1,
+    .print-report-area h2,
+    .print-report-area h5 {
+        color: #000 !important;
+    }
+
+    .print-report-area .badge {
+        border: 1px solid #000;
+        color: #000 !important;
+        background: none !important;
+    }
+
+    .print-report-area table { font-size: 0.85rem; }
+
+    .print-report-area .table-dark th {
+        background: #eee !important;
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 14mm;
+    }
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 767.98px) {
+    main { padding: 1.25rem !important; }
+    main h1.h2 { font-size: 1.25rem; }
+    .card.p-3 { padding: 1.1rem !important; }
+    .table th, .table td { padding: 0.65rem 0.75rem; }
+    .login-header { padding: 1.75rem 1.25rem 1.25rem; }
+}
+
+@media (min-width: 768px) {
+    main { padding: 2rem 2.25rem !important; }
+}
