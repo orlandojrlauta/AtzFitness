@@ -2,52 +2,28 @@
 /**
  * ATZ Fitness Gym Management System
  * Main Entry Point
- *
- * This file only determines where the user should go.
- * reCAPTCHA should be implemented in login.php or register.php,
- * where the actual form submission occurs.
  */
 
 session_start();
 
-/*
-|--------------------------------------------------------------------------
-| CHECK IF USER IS LOGGED IN
-|--------------------------------------------------------------------------
-*/
-
+// Check if the user is logged in
 if (isset($_SESSION['user_id'])) {
 
     $role = $_SESSION['role'] ?? '';
 
-    /*
-    |--------------------------------------------------------------------------
-    | ADMINISTRATOR
-    |--------------------------------------------------------------------------
-    */
-
+    // Administrator
     if ($role === 'Administrator') {
         header('Location: admin/index.php');
         exit;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | STAFF
-    |--------------------------------------------------------------------------
-    */
-
+    // Staff
     if ($role === 'Staff') {
         header('Location: staff/index.php');
         exit;
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | INVALID / UNKNOWN ROLE
-    |--------------------------------------------------------------------------
-    */
-
+    // Invalid or unknown role
     session_unset();
     session_destroy();
 
@@ -55,14 +31,6 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-/*
-|--------------------------------------------------------------------------
-| NOT LOGGED IN
-|--------------------------------------------------------------------------
-|
-| Send the user to the login page.
-|
-*/
-
+// Not logged in → Login page
 header('Location: login.php');
 exit;
