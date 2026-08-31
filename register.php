@@ -47,8 +47,8 @@ function admin_already_exists($conn) {
 | Secret Key = used for server-side verification
 |
 */
-define('RECAPTCHA_SITE_KEY', 'YOUR_RECAPTCHA_SITE_KEY');
-define('RECAPTCHA_SECRET_KEY', 'YOUR_RECAPTCHA_SECRET_KEY');
+define('RECAPTCHA_SITE_KEY', '6LcOd6EtAAAAAMTW5GFqZ3VqXy_7hO5O83xT9hSV');
+define('RECAPTCHA_SECRET_KEY', '6LcOd6EtAAAAAPRJpRTxOBVyF9E2ax7juRokdfar');
 
 $admin_exists = admin_already_exists($conn);
 $error = '';

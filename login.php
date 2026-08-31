@@ -12,8 +12,8 @@ require_once 'includes/db.php';
 | Google reCAPTCHA v2 Settings
 |--------------------------------------------------------------------------
 */
-define('RECAPTCHA_SITE_KEY', 'YOUR_RECAPTCHA_SITE_KEY');
-define('RECAPTCHA_SECRET_KEY', 'YOUR_RECAPTCHA_SECRET_KEY');
+define('RECAPTCHA_SITE_KEY', '6LcOd6EtAAAAAMTW5GFqZ3VqXy_7hO5O83xT9hSV');
+define('RECAPTCHA_SECRET_KEY', '6LcOd6EtAAAAAPRJpRTxOBVyF9E2ax7juRokdfar');
 
 function verify_recaptcha(string $response): bool
 {

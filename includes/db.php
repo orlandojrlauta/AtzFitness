@@ -94,10 +94,10 @@ if (!headers_sent()) {
 // file first, so setting it here fixes it everywhere at once.
 date_default_timezone_set('Asia/Manila');
 
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'atz_fitness_db');
+define('DB_HOST', 'sql101.infinityfree.com');
+define('DB_USER', 'if0_42242608');
+define('DB_PASS', 'JmfY7NpPTJJR5');
+define('DB_NAME', 'if0_42242608_atz_fitness_db');
 
 // Establish MySQLi Connection
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
